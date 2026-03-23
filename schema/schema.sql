@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS badge_rules_x_equipment_types;
 DROP TABLE IF EXISTS badge_rule_levels;
 DROP TABLE IF EXISTS badge_rules;
 DROP TABLE IF EXISTS schema_versioning;
+DROP TABLE IF EXISTS api_keys_x_permissions;
 DROP TABLE IF EXISTS api_keys;
 DROP TABLE IF EXISTS charges;
 DROP TABLE IF EXISTS payments;
@@ -502,6 +503,14 @@ CREATE TABLE api_keys (
 	PRIMARY KEY(id)
 );
 
+CREATE TABLE api_keys_x_permissions (
+	id INT UNSIGNED AUTO_INCREMENT NOT NULL,
+	api_key_id INT UNSIGNED NOT NULL,
+	permission_id INT UNSIGNED NOT NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY api_keys_x_permissions_api_key_id (api_key_id) REFERENCES api_keys (id) ON DELETE CASCADE,
+	FOREIGN KEY api_keys_x_permissions_permission_id (permission_id) REFERENCES permissions (id) ON DELETE CASCADE
+);
 
 -- List to track what schema is installed; helpful when doing support
 CREATE TABLE schema_versioning (
@@ -537,4 +546,4 @@ CREATE TABLE badge_rules_x_equipment_types (
 	FOREIGN KEY badge_rules_x_equipment_types_badge_rule_id (badge_rule_id) REFERENCES badge_rules (id) ON DELETE CASCADE
 );
 
-INSERT INTO schema_versioning(version, comment) VALUES ("2.11.0", "Database created");
+INSERT INTO schema_versioning(version, comment) VALUES ("2.12.0", "Database created");
