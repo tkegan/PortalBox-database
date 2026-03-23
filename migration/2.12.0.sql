@@ -1,4 +1,7 @@
+-- Delete some unused permissions
 -- Add support for fine grained permissions on API Keys
+
+DELETE FROM permissions WHERE id IN (401, 402, 403, 404);
 
 CREATE TABLE api_keys_x_permissions (
 	id INT UNSIGNED AUTO_INCREMENT NOT NULL,
